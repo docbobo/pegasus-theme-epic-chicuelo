@@ -33,7 +33,6 @@ FocusScope {
         }
     }
 
-
     Image {
         source: '../assets/system-global-bg.jpg'
 
@@ -75,7 +74,6 @@ FocusScope {
                 id: logoImage
 
                 anchors.fill: parent
-                asynchronous: true
                 fillMode: Image.PreserveAspectFit
                 opacity: visible ? 1.0 : 0.0
                 readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.get(menu.currentIndex).shortName + '.svg'; }
@@ -135,12 +133,11 @@ FocusScope {
     Image {
         id: x_indicator
 
-        asynchronous: true
         fillMode: Image.Stretch
         height: 0.6 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
-        source: Helpers.lookup_indicator(menu.currentIndex)
+        source: Helpers.lookup_indicator(menu.currentIndex, menu.model.get(menu.currentIndex))
         visible: status == Image.Ready
         width: 0.006 * systemView.width
         x: 0.027 * systemView.width - 0.5 * width
@@ -157,7 +154,7 @@ FocusScope {
         font.pixelSize: 0.03 * systemView.height
         height: 0.1 * systemView.height
         horizontalAlignment: Text.AlignHCenter
-        text: Helpers.lookup_short_description(menu.model.get(menu.currentIndex).shortName)
+        text: Helpers.lookup_summary(menu.model.get(menu.currentIndex))
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.32 * systemView.width
@@ -181,7 +178,7 @@ FocusScope {
         font.pixelSize: 0.02 * systemView.height
         height: 0.1 * systemView.height
         horizontalAlignment: Text.AlignHCenter
-        text: Helpers.lookup_long_description(menu.model.get(menu.currentIndex).shortName);
+        text: Helpers.lookup_description(menu.model.get(menu.currentIndex));
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.28 * systemView.width
@@ -199,22 +196,20 @@ FocusScope {
     Image {
         id: x_character
 
-        asynchronous: true
         fillMode: Image.Stretch
-        height: 0.85 * systemView.height
+        height: 0.86 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: false
         source: '../assets/posters/' + systemView.model.get(currentIndex).shortName + '.jpg'
         visible: status == Image.Ready
         width: 0.535 * systemView.width
         x: 0.678 * systemView.width - 0.5 * width
-        y: 0.5 * systemView.height - 0.5 * height
+        y: 0.494 * systemView.height - 0.5 * height
     }
 
     Image {
         id: x_controller
 
-        asynchronous: true
         fillMode: Image.Stretch
         height: 0.4 * systemView.height
         opacity: visible ? 1.0 : 0.0
