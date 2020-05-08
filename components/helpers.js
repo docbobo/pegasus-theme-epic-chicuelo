@@ -413,14 +413,18 @@ function format_game_count(count) {
     }
 }
 
-function lookup_short_description(index)  {
-    let system = systems[index];
+function lookup_summary(modelData)  {
+    if (modelData.summary) return modelData.summary;
+
+    let system = systems[modelData.shortName];
     if (system) return system.short;
     return null;
 }
 
-function lookup_long_description(index)  {
-    let system = systems[index];
+function lookup_description(modelData)  {
+    if (modelData.description) return modelData.description;
+
+    let system = systems[modelData.shortName];
     if (system) return system.long;
     return null;
 }

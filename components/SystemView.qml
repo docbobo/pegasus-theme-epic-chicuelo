@@ -157,7 +157,7 @@ FocusScope {
         font.pixelSize: 0.03 * systemView.height
         height: 0.1 * systemView.height
         horizontalAlignment: Text.AlignHCenter
-        text: Helpers.lookup_short_description(menu.model.get(menu.currentIndex).shortName)
+        text: Helpers.lookup_summary(menu.model.get(menu.currentIndex))
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.32 * systemView.width
@@ -181,7 +181,7 @@ FocusScope {
         font.pixelSize: 0.02 * systemView.height
         height: 0.1 * systemView.height
         horizontalAlignment: Text.AlignHCenter
-        text: Helpers.lookup_long_description(menu.model.get(menu.currentIndex).shortName);
+        text: Helpers.lookup_description(menu.model.get(menu.currentIndex));
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.28 * systemView.width

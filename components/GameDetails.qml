@@ -52,7 +52,7 @@ FocusScope {
         font.pixelSize: 0.02 * root.height
         height: 0.2 * root.height
         horizontalAlignment: Text.AlignLeft
-        text: Helpers.lookup_long_description(modelData.shortName);
+        text: Helpers.lookup_description(modelData);
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.25 * root.width
