@@ -103,6 +103,8 @@ FocusScope {
     Image {
         id: md_image
 
+        cache: false
+        
         fillMode: Image.PreserveAspectFit
         height: 0.5556 * root.height
         opacity: visible ? 1.0 : 0.0
