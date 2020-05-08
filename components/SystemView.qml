@@ -139,7 +139,7 @@ FocusScope {
         height: 0.6 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
-        source: Helpers.lookup_indicator(menu.currentIndex)
+        source: Helpers.lookup_indicator(menu.currentIndex, menu.model.get(menu.currentIndex))
         visible: status == Image.Ready
         width: 0.006 * systemView.width
         x: 0.027 * systemView.width - 0.5 * width

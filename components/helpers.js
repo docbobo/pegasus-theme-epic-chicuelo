@@ -429,7 +429,10 @@ function lookup_description(modelData)  {
     return null;
 }
 
-function lookup_indicator(index)  {
-    console.log(index +  " -> " + indicators[index]);
+function lookup_indicator(index, item)  {
+    if (item.shortName == 'power') {
+        return  "../assets/indicators/power.png"
+    }
+
     return indicators[index];
 }
