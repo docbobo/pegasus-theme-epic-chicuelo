@@ -33,7 +33,6 @@ FocusScope {
         }
     }
 
-
     Image {
         source: '../assets/system-global-bg.jpg'
 
@@ -201,14 +200,14 @@ FocusScope {
 
         asynchronous: true
         fillMode: Image.Stretch
-        height: 0.85 * systemView.height
+        height: 0.86 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: false
         source: '../assets/posters/' + systemView.model.get(currentIndex).shortName + '.jpg'
         visible: status == Image.Ready
         width: 0.535 * systemView.width
         x: 0.678 * systemView.width - 0.5 * width
-        y: 0.5 * systemView.height - 0.5 * height
+        y: 0.494 * systemView.height - 0.5 * height
     }
 
     Image {
