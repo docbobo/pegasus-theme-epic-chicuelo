@@ -32,7 +32,6 @@ FocusScope {
     delegate: Loader {
       width: systemAxis.width
       height: systemAxis.height
-      asynchronous: true      
       source: 'GameDetails.qml'
     }
   }

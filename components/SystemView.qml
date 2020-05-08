@@ -74,7 +74,6 @@ FocusScope {
                 id: logoImage
 
                 anchors.fill: parent
-                asynchronous: true
                 fillMode: Image.PreserveAspectFit
                 opacity: visible ? 1.0 : 0.0
                 readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.get(menu.currentIndex).shortName + '.svg'; }
@@ -134,7 +133,6 @@ FocusScope {
     Image {
         id: x_indicator
 
-        asynchronous: true
         fillMode: Image.Stretch
         height: 0.6 * systemView.height
         opacity: visible ? 1.0 : 0.0
@@ -198,7 +196,6 @@ FocusScope {
     Image {
         id: x_character
 
-        asynchronous: true
         fillMode: Image.Stretch
         height: 0.86 * systemView.height
         opacity: visible ? 1.0 : 0.0
@@ -213,7 +210,6 @@ FocusScope {
     Image {
         id: x_controller
 
-        asynchronous: true
         fillMode: Image.Stretch
         height: 0.4 * systemView.height
         opacity: visible ? 1.0 : 0.0

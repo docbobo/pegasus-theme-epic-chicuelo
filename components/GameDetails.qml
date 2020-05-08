@@ -20,7 +20,6 @@ FocusScope {
     }
     
     Image {
-        asynchronous: true
         fillMode: Image.PreserveAspectFit
         height: 0.16 * root.height
         id: x_logo2
@@ -86,17 +85,16 @@ FocusScope {
             font.pixelSize: 0.024 * root.height
             horizontalAlignment: Text.AlignLeft
             leftPadding: 0.05 * root.width
+            rightPadding: leftPadding
             lineHeight: 1.7
             readonly property color selectedColor: '#78c7ef'
             readonly property color unselectedColor: '#dee0e8'
-            rightPadding: leftPadding
             text: modelData.title
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignVCenter
             width: ListView.view.width
         }
         highlight: Image {
-            asynchronous: true
             smooth: false
             source: '../assets/icon.png'
         }
@@ -105,7 +103,6 @@ FocusScope {
     Image {
         id: md_image
 
-        asynchronous: true
         fillMode: Image.PreserveAspectFit
         height: 0.5556 * root.height
         opacity: visible ? 1.0 : 0.0
