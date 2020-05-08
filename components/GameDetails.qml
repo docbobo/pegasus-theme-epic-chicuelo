@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.12
 
 import '../components/helpers.js' as Helpers
 
@@ -104,7 +104,7 @@ FocusScope {
         id: md_image
         
         cache: false
-        
+
         fillMode: Image.PreserveAspectFit
         height: 0.5556 * root.height
         opacity: visible ? 1.0 : 0.0
@@ -115,5 +115,14 @@ FocusScope {
         x: 0.6925 * root.width - 0.5 * width
         y: 0.3915 * root.height - 0.5 * height
     }
-    
+
+    DropShadow {
+        anchors.fill: md_image
+        horizontalOffset: 5
+        verticalOffset: 5
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source: md_image
+    }
 }
