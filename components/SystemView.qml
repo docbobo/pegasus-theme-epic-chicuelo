@@ -10,20 +10,12 @@ FocusScope {
     property alias model: menu.model
     property alias currentIndex: menu.currentIndex
 
-    Keys.onUpPressed: {
-        console.log("DOWN: " + currentIndex);
-        if (currentIndex <= 0)
-            currentIndex = api.collections.count - 1;
-        else
-            currentIndex--;
-    }
 
-    Keys.onDownPressed: {
-        if (currentIndex >= api.collections.count - 1)
-            currentIndex = 0;
-        else
-            currentIndex++;
-    }
+    signal collectionNext
+    Keys.onDownPressed: systemView.collectionNext()
+    
+    signal collectionPrev
+    Keys.onUpPressed: systemView.collectionPrev()
 
     signal enter()
     Keys.onPressed: {
@@ -44,7 +36,7 @@ FocusScope {
     Item {
         id: menu
         property var model
-        property var currentIndex: 0
+        property var currentIndex
         
         x: 0.055 * parent.width
         y: 0.105 * parent.height
@@ -61,7 +53,7 @@ FocusScope {
 
             
             fillMode: Image.PreserveAspectFit
-            readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.get(menu.currentIndex).shortName + '.svg'; }
+            readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.shortName + '.svg'; }
             smooth: true
             source: (sourceRelPath && `../${sourceRelPath}`) || ''
             
@@ -93,7 +85,7 @@ FocusScope {
             font.family: theme_font.name
             font.pixelSize: 0.03 * systemView.height
             
-            text: Helpers.lookup_summary(menu.model.get(menu.currentIndex))
+            text: Helpers.lookup_summary(menu.model)
             textFormat: Text.PlainText
             wrapMode: Text.WordWrap
             
@@ -116,7 +108,7 @@ FocusScope {
             font.family: theme_font.name
             font.pixelSize: 0.02 * systemView.height
             horizontalAlignment: Text.AlignHCenter
-            text: Helpers.lookup_description(menu.model.get(menu.currentIndex));
+            text: Helpers.lookup_description(menu.model);
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignVCenter
             wrapMode: Text.WordWrap
@@ -139,7 +131,7 @@ FocusScope {
             font.pixelSize: 0.025 * systemView.height
             
             lineHeight: 1.5
-            text: Helpers.format_game_count(systemView.model.get(currentIndex).games.count)
+            text: Helpers.format_game_count(menu.model.games.count)
             textFormat: Text.PlainText
             
             horizontalAlignment: Text.AlignHCenter
@@ -169,7 +161,7 @@ FocusScope {
         height: 0.6 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
-        source: Helpers.lookup_indicator(menu.currentIndex, menu.model.get(menu.currentIndex))
+        source: Helpers.lookup_indicator(menu.currentIndex, menu.model)
         visible: status == Image.Ready
         width: 0.006 * systemView.width
         x: 0.027 * systemView.width - 0.5 * width
@@ -183,7 +175,7 @@ FocusScope {
         height: 0.86 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: false
-        source: '../assets/posters/' + systemView.model.get(currentIndex).shortName + '.jpg'
+        source: '../assets/posters/' + systemView.model.shortName + '.jpg'
         visible: status == Image.Ready
         width: 0.535 * systemView.width
         x: 0.678 * systemView.width - 0.5 * width
@@ -197,13 +189,12 @@ FocusScope {
         height: 0.4 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
-        source: '../assets/controllers/' + systemView.model.get(currentIndex).shortName + '.png'
+        source: '../assets/controllers/' + systemView.model.shortName + '.png'
         visible: status == Image.Ready
         width: 0.275 * systemView.width
         x: 0.9785 * systemView.width - 1.0 * width
         y: 0.975 * systemView.height - 1.0 * height
     }
-    
 
     Timer {
         id: fadeInTimer

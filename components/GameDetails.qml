@@ -23,7 +23,7 @@ FocusScope {
         fillMode: Image.PreserveAspectFit
         height: 0.16 * root.height
         id: x_logo2
-        smooth: false
+        smooth: true
         source: '../assets/logos/' + modelData.shortName + '.svg'
         visible: false
         width: 0.16 * root.width
@@ -89,7 +89,7 @@ FocusScope {
             lineHeight: 1.7
             readonly property color selectedColor: '#78c7ef'
             readonly property color unselectedColor: '#dee0e8'
-            text: modelData.title
+            text:  modelData.title
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignVCenter
             width: ListView.view.width
