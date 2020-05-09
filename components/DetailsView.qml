@@ -2,12 +2,14 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 
 FocusScope {
-    id: root
+	id: root
+
+	property var currentGame: null
 
     property alias model: systemAxis.model
     property alias currentIndex: systemAxis.currentIndex
 
-
+	signal launch()
     signal leave()
     Keys.onPressed: {
         if (!event.isAutoRepeat && api.keys.isCancel(event)) {
@@ -16,23 +18,19 @@ FocusScope {
         }
     }
 
-    Image {
-        source: '../assets/ingame-global-bg.jpg'
+	Carousel {
+		id: systemAxis
+		focus: true
+		anchors.fill: parent
+		itemWidth: width
+		delegate: GameDetails {
+			width: systemAxis.width
+			height: systemAxis.height
+    	}
 
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom    
-    }
-
-  Carousel {
-    id: systemAxis
-    focus: true
-    anchors.fill: parent
-    itemWidth: width
-    delegate: Loader {
-      width: systemAxis.width
-      height: systemAxis.height
-      source: 'GameDetails.qml'
-    }
-  }
+		onItemSelected: {
+			root.currentGame = currentGame
+			root.launch()
+		}
+  	}
 }

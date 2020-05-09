@@ -3,13 +3,22 @@ import QtGraphicalEffects 1.12
 
 import '../components/helpers.js' as Helpers
 
-FocusScope {
+Item {
     id: root
+
     clip: true
     enabled: focus
     focus: parent.focus
+
     readonly property alias currentGame: gamelist.currentGame
 
+    function incrementCurrentIndex() {
+        gamelist.incrementCurrentIndex();        
+    }
+
+    function decrementCurrentIndex() {
+        gamelist.decrementCurrentIndex();
+    }
 
     Image {
         source: '../assets/ingame-global-bg.jpg'
@@ -62,10 +71,9 @@ FocusScope {
 
     ListView {
         id: gamelist
-        
-        Keys.onPressed: if (!event.isAutoRepeat && api.keys.isAccept(event)) { event.accepted = true; currentGame.launch(); }
+
         clip: true
-        focus: true
+        focus: parent.focus
         height: 0.75 * root.height
         highlightMoveDuration: 0
         highlightRangeMode: ListView.ApplyRange

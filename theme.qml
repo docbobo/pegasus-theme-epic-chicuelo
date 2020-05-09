@@ -7,6 +7,9 @@ import 'components/'
 FocusScope { 
     property int collectionIndex: -1
     property var currentCollection: delegateModel.get(collectionIndex)
+    
+    property int currentGameIndex: 0
+    readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
     function modulo(a,n) {
         return (a % n + n) % n;
@@ -71,10 +74,13 @@ FocusScope {
         height: parent.height
     
         model: delegateModel
-        currentIndex: systemView.currentIndex
         
         onLeave: systemView.focus = true
-        onCurrentIndexChanged: if (focus) systemView.currentIndex = currentIndex
+        onLaunch: currentGame.launch()
+        
+        currentGame: detailsView.currentGame
+        currentIndex: systemView.currentIndex
+        onCurrentIndexChanged: if (focus) jumpToCollection(currentIndex)
     }
   
     states: [
