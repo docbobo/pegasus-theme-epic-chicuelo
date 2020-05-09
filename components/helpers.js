@@ -15,7 +15,7 @@ var systems = {
         long:  'The Amstrad CPC is a series of 8-bit home computers. The CPC series was pitched against other home computers and enjoyed a strong supply of game software',
     },
     'apple2': {
-        short: '8 BIT COMPUTER',
+        short: '8-BIT COMPUTER',
         long:  '8 bit home computer, one of the first highly successful mass-produced microcomputer products, designed primarily by Steve Wozniak',
     },
     'arcade': {
