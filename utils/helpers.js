@@ -1,7 +1,6 @@
 const TEXT_COLOR = '#818181';
 
-
-var systems = {
+const systems = {
     '3do': {
         short: '32 BIT CONSOLE',
         long:  'The 3DO Interactive Multiplayer, often called simply the 3DO, is a home video game console platform developed by The 3DO Company',
@@ -15,7 +14,7 @@ var systems = {
         long:  'The Amstrad CPC is a series of 8-bit home computers. The CPC series was pitched against other home computers and enjoyed a strong supply of game software',
     },
     'apple2': {
-        short: '8 BIT COMPUTER',
+        short: '8-BIT COMPUTER',
         long:  '8 bit home computer, one of the first highly successful mass-produced microcomputer products, designed primarily by Steve Wozniak',
     },
     'arcade': {
@@ -183,8 +182,9 @@ var systems = {
         long:  'The Oric was a series of home computers originally released by the Tangerine Computer Systems, including the original Oric-1',
     },
     'pc': {
-        short: '1981  ·  DESKTOP COMPUTERS',
-        long:  'MS-DOS is an operating system for x86-based personal computers mostly developed by Microsoft',
+        short:    '1981  ·  DESKTOP COMPUTERS',
+        long:     'MS-DOS is an operating system for x86-based personal computers mostly developed by Microsoft',
+        sort_key: 'MSDOS'
     },
     'pc88': {
         short: '1981  ·  8-BIT COMPUTER',
@@ -378,8 +378,9 @@ var systems = {
 
 
     'power': {
-        short: 'Shut Down Menu',
-        long:  'Safe option to Shut down or restart your System',
+        short:    'Shut Down Menu',
+        long:     'Safe option to Shut down or restart your System',
+        sort_key: 'Z01power'
     },
 };
 
@@ -402,8 +403,8 @@ var indicators = [
     '../assets/indicators/16th-system.png',
 ];
 
-function format_game_count(count) {
-    console.log("format_game_count: " + count)
+function format_game_count(modelData) {
+    let count = modelData.games.count
     if (count == 0) {
         return "NO GAMES AVAILABLE";
     } else if (count == 1) {
@@ -435,4 +436,10 @@ function lookup_indicator(index, item)  {
     }
 
     return indicators[index];
+}
+
+function get_sort_key(modelData) {
+    let system = systems[modelData.shortName];
+    if (system && system.sort_key) return system.sort_key;
+    return modelData.name;
 }
