@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.12
 
-import '../components/helpers.js' as Helpers
+import '../utils/helpers.js' as Helpers
 
 Item {
     id: root
@@ -73,7 +73,7 @@ Item {
         id: gamelist
 
         clip: true
-        focus: parent.focus
+        focus: true
         height: 0.75 * root.height
         highlightMoveDuration: 0
         highlightRangeMode: ListView.ApplyRange

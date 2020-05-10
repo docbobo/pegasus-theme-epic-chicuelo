@@ -2,7 +2,8 @@
 import QtQuick 2.0
 import SortFilterProxyModel 0.2
 
-import 'components/'
+import "utils/helpers.js" as Helpers
+import "components/"
 
 FocusScope { 
     property int collectionIndex: -1
@@ -29,17 +30,18 @@ FocusScope {
 
     FontLoader { id: theme_font; source: 'assets/Acre.otf' }
 
+    function filterExpression(modelLeft, modelRight) {
+        let left = Helpers.get_sort_key(modelLeft);
+        let right = Helpers.get_sort_key(modelRight);
+
+        return left < right;
+    }
+
     SortFilterProxyModel {
         id: delegateModel
         sourceModel: api.collections
         sorters: ExpressionSorter { 
-            expression: {
-                if (modelRight.name == "power") {
-                    return 1;
-                }
-
-                return modelLeft.name < modelRight.name;
-            }
+            expression: { return filterExpression(modelLeft, modelRight) }
         }
     }
 
@@ -78,7 +80,6 @@ FocusScope {
         onLeave: systemView.focus = true
         onLaunch: currentGame.launch()
         
-        currentGame: detailsView.currentGame
         currentIndex: systemView.currentIndex
         onCurrentIndexChanged: if (focus) jumpToCollection(currentIndex)
     }
