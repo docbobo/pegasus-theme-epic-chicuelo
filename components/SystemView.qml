@@ -117,33 +117,40 @@ FocusScope {
             Layout.preferredWidth: parent.width
             Layout.preferredHeight: 0.05 * parent.height
         } 
-        Image {
-            id: logoImage
-            
-            fillMode: Image.PreserveAspectFit
-            readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.shortName + '.svg'; }
-            smooth: true
-            source: (sourceRelPath && `../${sourceRelPath}`) || ''
-            
-            opacity: visible ? 1.0 : 0.0
-            visible: status == Image.Ready            
-
+        Item {
             Layout.alignment: Qt.AlignCenter
             Layout.preferredWidth: 0.8 * parent.width
             Layout.preferredHeight: 0.2 * parent.height
+        
+            Image {
+                id: logoImage
+                
+                fillMode: Image.PreserveAspectFit
+                readonly property string sourceRelPath: { return 'assets/logos/' + menu.model.shortName + '.svg'; }
+                smooth: true
+                source: (sourceRelPath && `../${sourceRelPath}`) || ''
+                
+                opacity: visible ? 1.0 : 0.0
+                visible: status == Image.Ready     
+
+                width: parent.width
+                height: parent.height       
+
+            }
+            Rectangle {
+                anchors.fill: logoImage
+                color: '#4f5159'
+                id: color_logoImage
+                visible: false
+            }
+            Blend {
+                anchors.fill: logoImage
+                foregroundSource: color_logoImage
+                mode: 'multiply'
+                source: logoImage
+            } 
         }
-        Rectangle {
-            anchors.fill: logoImage
-            color: '#4f5159'
-            id: color_logoImage
-            visible: false
-        }
-        Blend {
-            anchors.fill: logoImage
-            foregroundSource: color_logoImage
-            mode: 'multiply'
-            source: logoImage
-        } 
+
         Text {
             id: longdescription
 
