@@ -131,7 +131,7 @@ FocusScope {
             font.pixelSize: 0.025 * systemView.height
             
             lineHeight: 1.5
-            text: Helpers.format_game_count(menu.model.games.count)
+            text: Helpers.format_game_count(menu.model)
             textFormat: Text.PlainText
             
             horizontalAlignment: Text.AlignHCenter

@@ -403,7 +403,8 @@ var indicators = [
     '../assets/indicators/16th-system.png',
 ];
 
-function format_game_count(count) {
+function format_game_count(modelData) {
+    let count = modelData.games.count
     if (count == 0) {
         return "NO GAMES AVAILABLE";
     } else if (count == 1) {
