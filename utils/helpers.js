@@ -184,7 +184,7 @@ const systems = {
     'pc': {
         short:    '1981  ·  DESKTOP COMPUTERS',
         long:     'MS-DOS is an operating system for x86-based personal computers mostly developed by Microsoft',
-        sort_key: 'ms-dos'
+        sort_key: 'MSDOS'
     },
     'pc88': {
         short: '1981  ·  8-BIT COMPUTER',
