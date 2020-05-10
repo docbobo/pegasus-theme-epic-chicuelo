@@ -157,7 +157,7 @@ FocusScope {
     Image {
         id: x_indicator
 
-        fillMode: Image.Stretch
+        fillMode: Image.PreserveAspectFit
         height: 0.6 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
@@ -185,7 +185,7 @@ FocusScope {
     Image {
         id: x_controller
 
-        fillMode: Image.Stretch
+        fillMode: Image.PreserveAspectFit
         height: 0.4 * systemView.height
         opacity: visible ? 1.0 : 0.0
         smooth: true

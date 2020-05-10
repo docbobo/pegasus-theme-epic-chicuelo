@@ -103,7 +103,8 @@ Item {
             width: ListView.view.width
         }
         highlight: Image {
-            smooth: false
+            smooth: true
+            fillMode: Image.PreserveAspectFit
             source: '../assets/icon.png'
         }
     }
