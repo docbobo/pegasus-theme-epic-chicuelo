@@ -60,7 +60,7 @@ Item {
         font.pixelSize: 0.02 * root.height
         height: 0.2 * root.height
         horizontalAlignment: Text.AlignLeft
-        text: Helpers.lookup_description(modelData);
+        text: Helpers.lookup_description(modelData)
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
         width: 0.25 * root.width
@@ -73,7 +73,7 @@ Item {
         id: gamelist
 
         clip: true
-        focus: true
+        focus: false
         height: 0.75 * root.height
         highlightMoveDuration: 0
         highlightRangeMode: ListView.ApplyRange
@@ -97,7 +97,7 @@ Item {
             lineHeight: 1.7
             readonly property color selectedColor: '#78c7ef'
             readonly property color unselectedColor: '#dee0e8'
-            text:  modelData.title
+            text: modelData ? modelData.title : ""
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignVCenter
             width: ListView.view.width
@@ -113,12 +113,18 @@ Item {
         id: md_image
         
         cache: false
+        asynchronous: false
 
         fillMode: Image.PreserveAspectFit
         height: 0.5556 * root.height
         opacity: visible ? 1.0 : 0.0
         smooth: true
-        source: currentGame.assets.boxFront
+        readonly property string sourceDir: {
+            if (currentGame) 
+                if (currentGame.assets) return currentGame.assets.boxFront;
+            return "";
+        }
+        source: sourceDir || ""
         visible: status == Image.Ready
         width: 0.4167 * root.width
         x: 0.6925 * root.width - 0.5 * width

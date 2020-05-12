@@ -20,6 +20,22 @@ PathView {
       event.accepted = true;    
       root.itemSelected(currentItem.currentGame);
     }
+
+    if (!event.isAutoRepeat && api.keys.isFilters(event)) {
+        event.accepted = true;
+        
+        if (currentItem.currentGame)
+        { 
+            if (currentItem.currentGame.modelData) {
+              currentItem.currentGame.modelData.favorite = !currentItem.currentGame.modelData.favorite;
+            }
+
+            currentItem.currentGame.favorite = !currentItem.currentGame.favorite;
+            console.log(JSON.stringify(currentItem.currentGame))
+        }
+
+        return;
+    }
   }
   snapMode: PathView.SnapOneItem
   preferredHighlightBegin: 0.5

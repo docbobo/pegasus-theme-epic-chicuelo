@@ -309,8 +309,9 @@ const systems = {
         long:  'Your entire game collection',
     },
     'auto-favorites': {
-        short: 'FAVORITES',
-        long:  'Access and quickly play your favorite games across the entire library',
+        short:    'FAVORITES',
+        long:     'Access and quickly play your favorite games across the entire library',
+        sort_key: 'Z02favorites'
     },
     'auto-lastplayed': {
         short: 'ALL CONSOLES / HANDHELDS',
@@ -381,7 +382,7 @@ const systems = {
         short:    'Shut Down Menu',
         long:     'Safe option to Shut down or restart your System',
         sort_key: 'Z01power'
-    },
+    }
 };
 
 var indicators = [
@@ -433,6 +434,8 @@ function lookup_description(modelData)  {
 function lookup_indicator(index, item)  {
     if (item.shortName == 'power') {
         return  "../assets/indicators/power.png"
+    } else if (item.shortName == 'auto-favorites') {
+        return  "../assets/indicators/auto-favorites.png"
     }
 
     return indicators[index];
@@ -442,4 +445,9 @@ function get_sort_key(modelData) {
     let system = systems[modelData.shortName];
     if (system && system.sort_key) return system.sort_key;
     return modelData.name;
+}
+
+function test(modelData) {
+    console.log(JSON.stringify(modelData));
+    return modelData;
 }

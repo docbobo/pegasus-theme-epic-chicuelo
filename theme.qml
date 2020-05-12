@@ -6,8 +6,10 @@ import "utils/helpers.js" as Helpers
 import "components/"
 
 FocusScope { 
+    property var collectionsModel: new Array();
+
     property int collectionIndex: -1
-    property var currentCollection: delegateModel.get(collectionIndex)
+    property var currentCollection: collectionsModel[collectionIndex]
     
     property int currentGameIndex: 0
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
@@ -25,27 +27,45 @@ FocusScope {
     }
 
     function jumpToCollection(idx) {
-        collectionIndex = modulo(idx, api.collections.count);
+        collectionIndex = modulo(idx, collectionsModel.length);
+        detailsView.currentIndex = collectionIndex
+        currentCollection = collectionsModel[collectionIndex];
     }
 
     FontLoader { id: theme_font; source: 'assets/Acre.otf' }
 
-    function filterExpression(modelLeft, modelRight) {
-        let left = Helpers.get_sort_key(modelLeft);
-        let right = Helpers.get_sort_key(modelRight);
-
-        return left < right;
-    }
-
     SortFilterProxyModel {
-        id: delegateModel
-        sourceModel: api.collections
-        sorters: ExpressionSorter { 
-            expression: { return filterExpression(modelLeft, modelRight) }
+        id: favGames
+        sourceModel: api.allGames
+        filters: ValueFilter {
+            roleName: "favorite"
+            value: true
         }
     }
 
+    property var favCollection: {
+        return {
+        name: "Favorites",
+        shortName: "auto-favorites",
+        games: favGames
+        }
+    }
+
+    function filterExpression(modelLeft, modelRight) {
+        let left = Helpers.get_sort_key(modelLeft);
+        let right = Helpers.get_sort_key(modelRight);
+        return left < right ? -1 : 1;
+    }
+
     Component.onCompleted: {
+        api.collections.toVarArray().forEach(collection => {
+            collectionsModel.push(collection);
+        });
+
+        collectionsModel.push(favCollection);
+        console.log(collectionsModel);
+
+        collectionsModel.sort(filterExpression);
         jumpToCollection(0);
     }
 
@@ -61,7 +81,7 @@ FocusScope {
         model: currentCollection
         currentIndex: collectionIndex
 
-        onEnter: detailsView.focus = true
+        onEnter: {detailsView.model = collectionsModel; detailsView.focus = true; }
 
         onCollectionNext: nextCollection()
         onCollectionPrev: prevCollection()
@@ -75,7 +95,7 @@ FocusScope {
         anchors.top: systemView.bottom
         height: parent.height
     
-        model: delegateModel
+        model: collectionsModel
         
         onLeave: systemView.focus = true
         onLaunch: currentGame.launch()

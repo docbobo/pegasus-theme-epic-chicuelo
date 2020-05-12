@@ -16,6 +16,12 @@ FocusScope {
             event.accepted = true;
             return root.leave();
         }
+
+		if (!event.isAutoRepeat && event.text == "d") {
+			event.accepted = true;
+			console.log(JSON.stringify(currentGame));
+			return;
+		}
     }
 
 	Carousel {
