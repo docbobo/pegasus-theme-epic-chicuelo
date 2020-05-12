@@ -11,7 +11,7 @@ FocusScope {
     property int collectionIndex: -1
     property var currentCollection: collectionsModel[collectionIndex]
     
-    property int currentGameIndex: 0
+    property int currentGameIndex: -1
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
     function modulo(a,n) {
@@ -28,8 +28,6 @@ FocusScope {
 
     function jumpToCollection(idx) {
         collectionIndex = modulo(idx, collectionsModel.length);
-        detailsView.currentIndex = collectionIndex
-        currentCollection = collectionsModel[collectionIndex];
     }
 
     FontLoader { id: theme_font; source: 'assets/Acre.otf' }
@@ -67,6 +65,7 @@ FocusScope {
 
         collectionsModel.sort(filterExpression);
         jumpToCollection(0);
+        currentGameIndex = 0;
     }
 
     SystemView {

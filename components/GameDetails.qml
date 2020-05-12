@@ -109,11 +109,12 @@ Item {
         }
     }
 
+    
     Image {
         id: md_image
         
-        cache: false
-        asynchronous: false
+        cache: true
+        asynchronous: true
 
         fillMode: Image.PreserveAspectFit
         height: 0.5556 * root.height
@@ -124,6 +125,24 @@ Item {
         width: 0.4167 * root.width
         x: 0.6925 * root.width - 0.5 * width
         y: 0.3915 * root.height - 0.5 * height
+    }
+    Text {
+        id: md_name
+
+        visible: md_image.source == ""
+        color: '#aaaaaa'
+        font.family: theme_font.name
+        font.pixelSize: 0.045 * root.height
+        horizontalAlignment: Text.AlignHCenter
+        lineHeight: 1.5
+        text: currentGame.title
+        textFormat: Text.PlainText
+        verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.WordWrap
+
+        x: 0.6925 * root.width - 0.5 * width
+        y: 0.3915 * root.height - 0.5 * height
+        width: 0.4167 * parent.width
     }
 
     DropShadow {
