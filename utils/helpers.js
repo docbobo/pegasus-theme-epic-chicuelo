@@ -446,8 +446,3 @@ function get_sort_key(modelData) {
     if (system && system.sort_key) return system.sort_key;
     return modelData.name;
 }
-
-function test(modelData) {
-    console.log(JSON.stringify(modelData));
-    return modelData;
-}

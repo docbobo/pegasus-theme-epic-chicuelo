@@ -2,54 +2,94 @@
 // converter v0.1.0
 
 import QtQuick 2.0
+import QtQuick.Window 2.2
 
 PathView {
-  id: root
+  	id: root
 
-  property int itemWidth
-  readonly property int pathWidth: pathItemCount * itemWidth
+  	property int itemWidth
+  	readonly property int pathWidth: pathItemCount * itemWidth
   
-  Keys.onLeftPressed: decrementCurrentIndex()    
-  Keys.onRightPressed: incrementCurrentIndex()
-  Keys.onUpPressed: currentItem.decrementCurrentIndex()
-  Keys.onDownPressed: currentItem.incrementCurrentIndex()
+  	Keys.onLeftPressed: decrementCurrentIndex()    
+  	Keys.onRightPressed: incrementCurrentIndex()
+  	Keys.onUpPressed: currentItem.decrementCurrentIndex()
+  	Keys.onDownPressed: currentItem.incrementCurrentIndex()
   
-  signal itemSelected(var currentGame)
-  Keys.onPressed: {
-    if (!event.isAutoRepeat && api.keys.isAccept(event)) {
-      event.accepted = true;    
-      root.itemSelected(currentItem.currentGame);
-    }
+  	signal itemSelected(var currentGame)
+	Keys.onPressed: {
+		if (!event.isAutoRepeat && api.keys.isAccept(event)) {
+			event.accepted = true;    
+			root.itemSelected(currentItem.currentGame);
+		}
 
-    if (!event.isAutoRepeat && api.keys.isFilters(event)) {
-        event.accepted = true;
-        
-        if (currentItem.currentGame)
-        { 
-            if (currentItem.currentGame.modelData) {
-              currentItem.currentGame.modelData.favorite = !currentItem.currentGame.modelData.favorite;
-            }
+		if (!event.isAutoRepeat && api.keys.isFilters(event)) {
+			event.accepted = true;
+			
+			if (currentItem.currentGame)
+			{ 
+				if (currentItem.currentGame.modelData) {
+					currentItem.currentGame.modelData.favorite = !currentItem.currentGame.modelData.favorite;
+				}
 
-            currentItem.currentGame.favorite = !currentItem.currentGame.favorite;
-            console.log(JSON.stringify(currentItem.currentGame))
-        }
+				currentItem.currentGame.favorite = !currentItem.currentGame.favorite;
+				if (currentItem.currentGame.favorite) {
+					status.message = 'Added Favorite'
+				} else {
+					status.message = 'Removed Favorite'
+				}
+				status.visible = true;
+				statusTimer.start();
+			}
 
-        return;
-    }
-  }
-  snapMode: PathView.SnapOneItem
-  preferredHighlightBegin: 0.5
-  preferredHighlightEnd: 0.5
-  pathItemCount: {
-    let count = Math.ceil(width / itemWidth);
-    return (count + 2 <= model.count) ? count + 2 : Math.min(count, model.count);
-  }
-  path: Path {
-    startX: (root.width - root.pathWidth) / 2
-    startY: root.height / 2
-    PathLine {
-      x: root.path.startX + root.pathWidth
-      y: root.path.startY
-    }
-  }
+			return;
+		}
+	}
+	snapMode: PathView.SnapOneItem
+	preferredHighlightBegin: 0.5
+	preferredHighlightEnd: 0.5
+	pathItemCount: {
+		let count = Math.ceil(width / itemWidth);
+		return (count + 2 <= model.count) ? count + 2 : Math.min(count, model.count);
+	}
+	path: Path {
+		startX: (root.width - root.pathWidth) / 2
+		startY: root.height / 2
+		PathLine {
+			x: root.path.startX + root.pathWidth
+			y: root.path.startY
+		}
+	}
+
+	Rectangle {
+		id: status
+		property alias message: statusMessage.text
+
+		y: -radius
+		x: (parent.width - width) * 0.5
+		z: 100
+		width: parent.width / 2
+		height: parent.height * 0.08
+		color: '#aaa'
+		border.color: '#555'
+		radius: 10
+		visible: false
+
+		Text {
+			id: statusMessage
+			anchors.fill: parent
+			
+			text: ""
+			font.family: theme_font.name
+			font.pixelSize: 0.0 * root.height
+
+			verticalAlignment: Text.AlignVCenter
+			horizontalAlignment: Text.AlignHCenter
+		}
+
+		Timer {
+			id: statusTimer
+        	interval: 1000; 
+        	onTriggered: status.visible = false;
+    	}
+	}
 }

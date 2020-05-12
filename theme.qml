@@ -43,9 +43,9 @@ FocusScope {
 
     property var favCollection: {
         return {
-        name: "Favorites",
-        shortName: "auto-favorites",
-        games: favGames
+            name: "Favorites",
+            shortName: "auto-favorites",
+            games: favGames
         }
     }
 
@@ -61,8 +61,6 @@ FocusScope {
         });
 
         collectionsModel.push(favCollection);
-        console.log(collectionsModel);
-
         collectionsModel.sort(filterExpression);
         jumpToCollection(0);
         currentGameIndex = 0;
